@@ -22,7 +22,7 @@ public class MVCWebContext extends CDIWebContext {
     }
 
     @Override public Set<String> getVariableNames() {
-        final Set<String> res = new HashSet<String>(models.keySet());
+        final Set<String> res = new HashSet<>(models.keySet());
         res.addAll(super.getVariableNames());
         return res;
     }

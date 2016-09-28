@@ -1,24 +1,26 @@
 package hu.inbuss.thymeleaf.mvc;
 
+import java.util.Set;
 import javax.enterprise.context.Dependent;
 import javax.enterprise.inject.Produces;
 import javax.inject.Inject;
-import javax.servlet.ServletContext;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.templateresolver.ITemplateResolver;
-import org.thymeleaf.templateresolver.ServletContextTemplateResolver;
 
 /**
  * @author PÁLFALVI Tamás &lt;tamas.palfalvi@inbuss.hu&gt;
  */
 @Dependent
 public class TemplateEngineProducer {
-    @Inject private ServletContext servletContext;
+    private final Set<ITemplateResolver> resolvers;
+
+    @Inject public TemplateEngineProducer(final TemplateResolvers resolvers) {
+        this.resolvers = resolvers.getTemplateResolvers();
+    }
 
     @Produces public TemplateEngine getTemplateEngine() {
         TemplateEngine engine = new TemplateEngine();
-        ITemplateResolver resolver = new ServletContextTemplateResolver(servletContext);
-        engine.setTemplateResolver(resolver);
+        engine.setTemplateResolvers(resolvers);
         return engine;
     }
 }
