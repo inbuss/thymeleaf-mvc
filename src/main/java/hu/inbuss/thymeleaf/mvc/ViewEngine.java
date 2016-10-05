@@ -15,17 +15,18 @@ import org.thymeleaf.context.IWebContext;
 public class ViewEngine implements javax.mvc.engine.ViewEngine {
     private final TemplateEngine engine;
     private final MVCWebContextFactory ctxFactory;
-    private final TemplateResolvers resolvers;
 
-    @Inject public ViewEngine(final TemplateEngine engine, final MVCWebContextFactory ctxFactory,
-                              final TemplateResolvers resolvers) {
+    @Inject protected ViewEngine(final TemplateEngine engine, final MVCWebContextFactory ctxFactory) {
         this.engine = engine;
         this.ctxFactory = ctxFactory;
-        this.resolvers = resolvers;
     }
 
     @Override public boolean supports(final String view) {
-        return resolvers.supports(view);
+//        for (final ITemplateResolver tr : engine.getTemplateResolvers())
+//            if (tr.supports(view)) <-- need a cheap way to do this
+//                return true;
+//        return false;
+        return view.endsWith(".html");
     }
 
     @Override public void processView(final ViewEngineContext context) throws ViewEngineException {
