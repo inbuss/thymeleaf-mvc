@@ -10,6 +10,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
+ * A Thymeleaf web context providing MVC models as expression roots. It extends base CDI functionality by adding model
+ * objects registered via the MVC {@link Models} facility to the available set of CDI named beans.
+ *
+ * Explicitly registered model objects are prioritized over named beans. According to the MVC specification,
+ * "application developers are encouraged to use CDI-based models whenever supported", so the {@link Models} way should
+ * not be used in applications using this extension.
  * @author PÁLFALVI Tamás &lt;tamas.palfalvi@inbuss.hu&gt;
  */
 public class MVCWebContext extends CDIWebContext {

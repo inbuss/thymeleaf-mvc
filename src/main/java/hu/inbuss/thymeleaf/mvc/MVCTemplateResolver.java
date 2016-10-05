@@ -7,11 +7,19 @@ import org.thymeleaf.IEngineConfiguration;
 import org.thymeleaf.templateresolver.ServletContextTemplateResolver;
 
 /**
+ * Template resolver implementing the requirements of the MVC standard. It looks for the templates in the application
+ * archive. Relative names are resolved relative to {@code /WEB-INF/views} by default; this can be overridden using the
+ * JAX-WS configuration property {@code ViewEngine.viewFolder}.
  * @author PÁLFALVI Tamás &lt;tamas.palfalvi@inbuss.hu&gt;
  */
 public class MVCTemplateResolver extends ServletContextTemplateResolver {
     private final MvcContext mvcContext;
 
+    /**
+     * Create a new template resolver instance.
+     * @param servletContext the servlet context for the application
+     * @param mvcContext the MVC context for the application
+     */
     public MVCTemplateResolver(final ServletContext servletContext, final MvcContext mvcContext) {
         super(servletContext);
         this.mvcContext = mvcContext;

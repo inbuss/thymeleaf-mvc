@@ -13,6 +13,8 @@ import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.templateresolver.ITemplateResolver;
 
 /**
+ * A bean building and configuring the {@link TemplateEngine} instance to be used in the application. Subclasses can be
+ * used to specialize the producer method and extend or override the default configuration.
  * @author PÁLFALVI Tamás &lt;tamas.palfalvi@inbuss.hu&gt;
  */
 @Dependent
@@ -21,6 +23,16 @@ public class TemplateEngineProducer {
     @Inject private MvcContext mvcContext;
     @Inject private ServletContext servletContext;
 
+    /**
+     * Producer method building and configuring the {@link TemplateEngine} instance to be used in the application. The
+     * engine's template resolver is set up to follow MVC requirements. JAX-RS parameter conversion bridges are
+     * detected, and if one is present, the engine is set up to use it.
+     *
+     * Subclasses can override and {@link javax.enterprise.inject.Specializes specialize} this method to add additional
+     * configuration (e.g. call {@link TemplateEngine#addDialect(org.thymeleaf.dialect.IDialect)} to add a dialect).
+     *
+     * @return the newly created and configured {@link TemplateEngine} instance
+     */
     @Produces public TemplateEngine getTemplateEngine() {
         final TemplateEngine engine = new TemplateEngine();
         final ITemplateResolver tr = new MVCTemplateResolver(servletContext, mvcContext);

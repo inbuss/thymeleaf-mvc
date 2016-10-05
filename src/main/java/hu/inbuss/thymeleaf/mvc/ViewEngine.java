@@ -9,6 +9,9 @@ import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.IWebContext;
 
 /**
+ * A bean providing an MVC {@link ViewEngine} by wrapping a Thymeleaf {@link TemplateEngine}. The template engine is
+ * injected as a bean, and is (by default) constructed by {@link TemplateEngineProducer#getTemplateEngine()}.
+ * Customizations should be done by specializing that producer method.
  * @author PÁLFALVI Tamás &lt;tamas.palfalvi@inbuss.hu&gt;
  */
 @Dependent
